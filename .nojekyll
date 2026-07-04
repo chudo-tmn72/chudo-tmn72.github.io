@@ -1,5 +1,5 @@
-# pages-refresh-20260704-2001
+# pages-refresh-20260704-2304
 # source: main/root
 # purpose: free GitHub Pages rebuild trigger after stale live check
-# live-check: FAQ nav still present, repo index has no FAQ
+# live-check: unable to confirm final v7 on live; repo index has no FAQ
 # target-index-sha: 200f104498c9310cc593e18a6b172cb5379468f2
