@@ -4,64 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ЧУДО | детская одежда для яркого детства</title>
-  <meta name="description" content="ЧУДО — детская одежда и готовые образы для яркого детства. Тюмень, самовывоз, доставка и отправка по РФ.">
+  <meta name="description" content="ЧУДО — детская одежда и готовые образы для яркого детства. В наличии в Тюмени: самовывоз, доставка и отправка по РФ.">
   <style>
     :root{
-      --pink:#ff2d8c;
-      --pink-dark:#d90f6d;
-      --yellow:#ffd72e;
-      --lime:#b9f25d;
-      --ink:#2b2330;
-      --muted:#6d5d6d;
-      --card:#fffafc;
-      --white:#ffffff;
-      --shadow:0 22px 60px rgba(119,18,71,.18);
-      --radius:28px;
+      --pink:#ff2d8c;--pink-dark:#d90f6d;--pink-soft:#ffe3f0;--yellow:#ffd72e;--lime:#b9f25d;--ink:#2b2330;--muted:#6d5d6d;--white:#fff;--card:#fffafc;--shadow:0 22px 60px rgba(119,18,71,.18);--radius:28px
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      color:var(--ink);
-      background:
-        radial-gradient(circle at 12% 10%, rgba(255,215,46,.9) 0 92px, transparent 93px),
-        radial-gradient(circle at 90% 4%, rgba(185,242,93,.85) 0 86px, transparent 87px),
-        linear-gradient(180deg,#ff54a3 0%, #ff2d8c 42%, #ffe3f0 100%);
-    }
-    a{color:inherit}
-    .wrap{max-width:1120px;margin:0 auto;padding:22px}
-    .nav{
-      display:flex;align-items:center;justify-content:space-between;gap:14px;
-      position:sticky;top:0;z-index:10;margin:0 auto 18px;padding:12px 14px;
-      background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-radius:999px;box-shadow:0 12px 35px rgba(55,17,36,.12)
-    }
-    .brand{display:flex;align-items:center;gap:10px;font-weight:900;text-decoration:none;white-space:nowrap}
-    .brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--yellow);color:var(--pink-dark);font-weight:900;box-shadow:inset 0 -4px rgba(255,45,140,.16)}
-    .nav-links{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-    .nav-links a{padding:10px 13px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:800;color:var(--ink)}
-    .nav-links a:hover{background:#ffe3f0}
-    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;padding:42px 0 26px}
-    .panel{background:rgba(255,250,252,.94);border:3px solid rgba(255,255,255,.72);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .hero-copy{padding:42px}
-    .kicker{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--lime);font-weight:900;font-size:14px}
-    h1{margin:22px 0 14px;font-size:clamp(58px,11vw,118px);line-height:.84;letter-spacing:-.06em;color:var(--pink);text-shadow:0 7px 0 var(--yellow), 0 12px 30px rgba(217,15,109,.2)}
-    .lead{font-size:clamp(19px,2.5vw,28px);line-height:1.24;margin:0 0 18px;font-weight:900}
-    .sub{font-size:18px;line-height:1.55;color:var(--muted);margin:0 0 26px;max-width:620px}
-    .actions{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 22px;border-radius:999px;text-decoration:none;font-weight:900;border:0;box-shadow:0 12px 28px rgba(217,15,109,.18)}
-    .btn.primary{background:var(--pink);color:white}.btn.secondary{background:white;color:var(--pink-dark);border:2px solid #ffd3e7}
-    .hero-card{padding:28px;min-height:420px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
-    .hero-card:before{content:"";position:absolute;inset:22px;border-radius:24px;background:linear-gradient(135deg,var(--yellow),#fff3a0 38%,var(--lime));z-index:0}
-    .hero-logo,.hero-note{position:relative;z-index:1}.hero-logo{font-size:76px;font-weight:900;color:var(--pink);text-shadow:0 6px 0 white;letter-spacing:-.06em}.hero-note{align-self:flex-end;max-width:270px;background:white;padding:18px;border-radius:22px;font-weight:900;line-height:1.28;box-shadow:0 16px 36px rgba(0,0,0,.12)}
-    section{margin:26px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:0 0 14px}h2{font-size:clamp(30px,5vw,52px);margin:0;letter-spacing:-.04em}.section-head p{margin:0;color:var(--muted);font-size:17px;max-width:520px;line-height:1.45}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid.four{grid-template-columns:repeat(4,1fr)}
-    .tile{display:flex;flex-direction:column;min-height:186px;padding:24px;border-radius:26px;background:var(--white);text-decoration:none;box-shadow:0 14px 32px rgba(74,20,47,.11);border:2px solid rgba(255,255,255,.72)}
-    .tile:hover{transform:translateY(-2px)}.icon{width:44px;height:44px;border-radius:16px;background:var(--yellow);display:grid;place-items:center;font-weight:900;color:var(--pink-dark);margin-bottom:18px}.tile h3{font-size:22px;margin:0 0 8px}.tile p{margin:0;color:var(--muted);line-height:1.45}.tile .arrow{margin-top:auto;padding-top:20px;font-weight:900;color:var(--pink-dark)}
-    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step{padding:26px;border-radius:26px;background:#fff;box-shadow:0 14px 32px rgba(74,20,47,.11)}.num{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--pink);color:white;font-weight:900;font-size:22px;margin-bottom:16px}.step h3{margin:0 0 8px;font-size:22px}.step p{margin:0;color:var(--muted);line-height:1.45}
-    .cta{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:32px;background:var(--ink);color:white;border-radius:var(--radius);box-shadow:var(--shadow)}.cta h2{color:white}.cta p{margin:8px 0 0;color:#f7d8e6;line-height:1.45}.cta .btn{background:var(--yellow);color:var(--ink);white-space:nowrap}
-    footer{padding:26px 0 12px;text-align:center;color:#70415a;font-weight:700}
-    @media (max-width:860px){.nav{align-items:flex-start;border-radius:24px}.nav-links{display:none}.hero{grid-template-columns:1fr;padding-top:14px}.hero-copy{padding:30px}.hero-card{min-height:270px}.grid,.grid.four,.steps{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:8px}.cta{display:block}.cta .btn{margin-top:18px}}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:radial-gradient(circle at 12% 10%,rgba(255,215,46,.9) 0 92px,transparent 93px),radial-gradient(circle at 90% 4%,rgba(185,242,93,.82) 0 86px,transparent 87px),linear-gradient(180deg,#ff54a3 0%,#ff2d8c 42%,#ffe3f0 100%)}a{color:inherit}.wrap{max-width:1120px;margin:0 auto;padding:22px}.nav{display:flex;align-items:center;justify-content:space-between;gap:14px;position:sticky;top:0;z-index:10;margin:0 auto 18px;padding:12px 14px;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-radius:999px;box-shadow:0 12px 35px rgba(55,17,36,.12)}.brand{display:flex;align-items:center;gap:10px;font-weight:900;text-decoration:none;white-space:nowrap}.brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--yellow);color:var(--pink-dark);font-weight:900;box-shadow:inset 0 -4px rgba(255,45,140,.16)}.brand small{color:var(--muted)}.nav-links{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.nav-links a{padding:10px 13px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:800;color:var(--ink)}.nav-links a:hover{background:var(--pink-soft)}.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;padding:42px 0 26px}.panel{background:rgba(255,250,252,.95);border:3px solid rgba(255,255,255,.72);border-radius:var(--radius);box-shadow:var(--shadow)}.hero-copy{padding:42px}.kicker{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--lime);font-weight:900;font-size:14px}h1{margin:22px 0 14px;font-size:clamp(58px,11vw,118px);line-height:.84;letter-spacing:-.06em;color:var(--pink);text-shadow:0 7px 0 var(--yellow),0 12px 30px rgba(217,15,109,.2)}.lead{font-size:clamp(19px,2.5vw,28px);line-height:1.24;margin:0 0 18px;font-weight:900}.sub{font-size:18px;line-height:1.55;color:var(--muted);margin:0 0 26px;max-width:620px}.actions{display:flex;gap:12px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 22px;border-radius:999px;text-decoration:none;font-weight:900;border:0;box-shadow:0 12px 28px rgba(217,15,109,.18)}.btn.primary{background:var(--pink);color:white}.btn.secondary{background:white;color:var(--pink-dark);border:2px solid #ffd3e7}.hero-card{padding:28px;min-height:420px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}.hero-card:before{content:"";position:absolute;inset:22px;border-radius:24px;background:linear-gradient(135deg,var(--yellow),#fff3a0 38%,var(--lime));z-index:0}.hero-logo,.hero-note{position:relative;z-index:1}.hero-logo{font-size:76px;font-weight:900;color:var(--pink);text-shadow:0 6px 0 white;letter-spacing:-.06em}.hero-note{align-self:flex-end;max-width:270px;background:white;padding:18px;border-radius:22px;font-weight:900;line-height:1.28;box-shadow:0 16px 36px rgba(0,0,0,.12)}section{margin:26px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:0 0 14px}h2{font-size:clamp(30px,5vw,52px);margin:0;letter-spacing:-.04em}.section-head p{margin:0;color:var(--muted);font-size:17px;max-width:520px;line-height:1.45}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid.four{grid-template-columns:repeat(4,1fr)}.tile{display:flex;flex-direction:column;min-height:186px;padding:24px;border-radius:26px;background:var(--white);text-decoration:none;box-shadow:0 14px 32px rgba(74,20,47,.11);border:2px solid rgba(255,255,255,.72);transition:transform .16s ease,box-shadow .16s ease}.tile:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(74,20,47,.15)}.icon{width:44px;height:44px;border-radius:16px;background:var(--yellow);display:grid;place-items:center;font-weight:900;color:var(--pink-dark);margin-bottom:18px}.tile h3{font-size:22px;margin:0 0 8px}.tile p{margin:0;color:var(--muted);line-height:1.45}.tile .arrow{margin-top:auto;padding-top:20px;font-weight:900;color:var(--pink-dark)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step{padding:26px;border-radius:26px;background:#fff;box-shadow:0 14px 32px rgba(74,20,47,.11)}.num{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--pink);color:white;font-weight:900;font-size:22px;margin-bottom:16px}.step h3{margin:0 0 8px;font-size:22px}.step p{margin:0;color:var(--muted);line-height:1.45}.trust{padding:28px;border-radius:var(--radius);background:rgba(255,255,255,.8);border:2px solid rgba(255,255,255,.72)}.trust-list{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}.trust-item{padding:18px;border-radius:20px;background:white;font-weight:800;color:var(--ink)}.trust-item span{display:block;margin-top:6px;color:var(--muted);font-weight:700;line-height:1.35}.cta{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:32px;background:var(--ink);color:white;border-radius:var(--radius);box-shadow:var(--shadow)}.cta h2{color:white}.cta p{margin:8px 0 0;color:#f7d8e6;line-height:1.45}.cta .btn{background:var(--yellow);color:var(--ink);white-space:nowrap}footer{padding:26px 0 12px;text-align:center;color:#70415a;font-weight:700}@media(max-width:860px){.wrap{padding:14px}.nav{align-items:flex-start;border-radius:24px}.nav-links{display:none}.hero{grid-template-columns:1fr;padding-top:14px}.hero-copy{padding:30px}.hero-card{min-height:270px}.grid,.grid.four,.steps,.trust-list{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:8px}.cta{display:block}.cta .btn{margin-top:18px;width:100%}}
   </style>
 </head>
 <body>
@@ -69,13 +17,12 @@
     <nav class="nav" aria-label="Навигация">
       <a class="brand" href="#top"><span class="brand-mark">Ч</span><span>ЧУДО<br><small>для яркого детства</small></span></a>
       <div class="nav-links">
-        <a href="https://vk.com/market-197611938?ref_source=community_goods&screen=group&section=album_1&traffic_source=link">Девочкам</a>
-        <a href="https://vk.com/market-197611938?ref_source=community_goods&screen=group&section=album_2&traffic_source=link">Мальчикам</a>
+        <a href="https://vk.com/market-197611938?ref_source=community_goods&screen=group&section=album_1&traffic_source=link" target="_blank" rel="noopener">Девочкам</a>
+        <a href="https://vk.com/market-197611938?ref_source=community_goods&screen=group&section=album_2&traffic_source=link" target="_blank" rel="noopener">Мальчикам</a>
         <a href="#height">По росту</a>
-        <a href="https://vk.com/%40chudo_tmn72-kak-oformit-zakaz-chudo">Как заказать</a>
-        <a href="https://vk.com/%40chudo_tmn72-dostavka-chudo">Доставка</a>
-        <a href="https://vk.com/%40chudo_tmn72-chastye-voprosy-chudo">FAQ</a>
-        <a href="https://vk.com/chudo_tmn72">VK</a>
+        <a href="https://vk.com/%40chudo_tmn72-kak-oformit-zakaz-chudo" target="_blank" rel="noopener">Как заказать</a>
+        <a href="https://vk.com/%40chudo_tmn72-dostavka-chudo" target="_blank" rel="noopener">Доставка</a>
+        <a href="https://vk.com/chudo_tmn72" target="_blank" rel="noopener">VK</a>
       </div>
     </nav>
 
@@ -87,11 +34,11 @@
           <p class="lead">Детская одежда, готовые образы и яркие вещи на каждый день.</p>
           <p class="sub">Помогаем быстро выбрать стильную вещь по росту и замерам: покажем детали, уточним наличие, подскажем размер и удобный способ получения.</p>
           <div class="actions">
-            <a class="btn primary" href="https://vk.com/chudo_tmn72">Написать во VK</a>
-            <a class="btn secondary" href="https://vk.com/market-197611938">Смотреть товары VK</a>
+            <a class="btn primary" href="https://vk.com/chudo_tmn72" target="_blank" rel="noopener">Написать во VK</a>
+            <a class="btn secondary" href="https://vk.com/market-197611938" target="_blank" rel="noopener">Смотреть товары VK</a>
           </div>
         </div>
-        <div class="panel hero-card" aria-label="Логотип ЧУДО">
+        <div class="panel hero-card" aria-label="Фирменный визуал ЧУДО">
           <div class="hero-logo">ЧУДО</div>
           <div class="hero-note">Вау-образы, стиль и каждый день — для яркого детства.</div>
         </div>
@@ -103,9 +50,9 @@
           <p>Основные альбомы: девочки, мальчики и готовые образы. Подбор по росту — отдельным блоком ниже.</p>
         </div>
         <div class="grid">
-          <a class="tile" href="https://vk.com/market-197611938?ref_source=community_goods&screen=group&section=album_1&traffic_source=link"><span class="icon">♡</span><h3>Девочки</h3><p>Яркие вещи, нежные детали и готовые сочетания.</p><span class="arrow">Открыть →</span></a>
-          <a class="tile" href="https://vk.com/market-197611938?ref_source=community_goods&screen=group&section=album_2&traffic_source=link"><span class="icon">✦</span><h3>Мальчики</h3><p>Удобная база, худи, штаны и вещи каждый день.</p><span class="arrow">Открыть →</span></a>
-          <a class="tile" href="https://vk.com/%40chudo_tmn72-navigaciya-chudo"><span class="icon">☼</span><h3>Образы</h3><p>Идеи, что с чем носить, чтобы собрать комплект быстрее.</p><span class="arrow">Открыть →</span></a>
+          <a class="tile" href="https://vk.com/market-197611938?ref_source=community_goods&screen=group&section=album_1&traffic_source=link" target="_blank" rel="noopener"><span class="icon">♡</span><h3>Девочки</h3><p>Яркие вещи, нежные детали и готовые сочетания.</p><span class="arrow">Открыть →</span></a>
+          <a class="tile" href="https://vk.com/market-197611938?ref_source=community_goods&screen=group&section=album_2&traffic_source=link" target="_blank" rel="noopener"><span class="icon">✦</span><h3>Мальчики</h3><p>Удобная база, худи, штаны и вещи каждый день.</p><span class="arrow">Открыть →</span></a>
+          <a class="tile" href="https://vk.com/%40chudo_tmn72-navigaciya-chudo" target="_blank" rel="noopener"><span class="icon">☼</span><h3>Образы</h3><p>Идеи, что с чем носить, чтобы собрать комплект быстрее.</p><span class="arrow">Открыть →</span></a>
         </div>
       </section>
 
@@ -115,9 +62,9 @@
           <p>Для мам, которым нужно быстро открыть нужную вилку роста и не искать по всему каталогу.</p>
         </div>
         <div class="grid">
-          <a class="tile" href="https://vk.com/market-197611938?ref_source=community_goods&screen=group&section=album_14&traffic_source=link"><span class="icon">82</span><h3>82–92</h3><p>Примерно 1,5–2,5 года.</p><span class="arrow">Смотреть →</span></a>
-          <a class="tile" href="https://vk.com/market-197611938?ref_source=community_goods&screen=group&section=album_15&traffic_source=link"><span class="icon">92</span><h3>92–104</h3><p>Примерно 2,5–4 года.</p><span class="arrow">Смотреть →</span></a>
-          <a class="tile" href="https://vk.com/market-197611938?section=album_17"><span class="icon">104</span><h3>104–110</h3><p>Примерно 4–5 лет.</p><span class="arrow">Смотреть →</span></a>
+          <a class="tile" href="https://vk.com/market-197611938?ref_source=community_goods&screen=group&section=album_14&traffic_source=link" target="_blank" rel="noopener"><span class="icon">82</span><h3>82–92</h3><p>Примерно 1,5–2,5 года.</p><span class="arrow">Смотреть →</span></a>
+          <a class="tile" href="https://vk.com/market-197611938?ref_source=community_goods&screen=group&section=album_15&traffic_source=link" target="_blank" rel="noopener"><span class="icon">92</span><h3>92–104</h3><p>Примерно 2,5–4 года.</p><span class="arrow">Смотреть →</span></a>
+          <a class="tile" href="https://vk.com/market-197611938?section=album_17" target="_blank" rel="noopener"><span class="icon">104</span><h3>104–110</h3><p>Примерно 4–5 лет.</p><span class="arrow">Смотреть →</span></a>
         </div>
       </section>
 
@@ -127,10 +74,23 @@
           <p>Покажем детали, поможем с размером и отправим удобным способом.</p>
         </div>
         <div class="grid four">
-          <a class="tile" href="https://vk.com/%40chudo_tmn72-kak-vybrat-razmer-chudo"><span class="icon">⌕</span><h3>Точные замеры</h3><p>Подбираем по росту и фактическим замерам вещи.</p></a>
-          <a class="tile" href="https://vk.com/%40chudo_tmn72-chastye-voprosy-chudo"><span class="icon">◉</span><h3>Доп. фото/видео</h3><p>По запросу покажем вещь ближе и подробнее.</p></a>
-          <a class="tile" href="https://vk.com/%40chudo_tmn72-kak-vybrat-razmer-chudo"><span class="icon">♡</span><h3>Помощь с размером</h3><p>Подскажем, какой размер выбрать для ребёнка.</p></a>
-          <a class="tile" href="https://vk.com/%40chudo_tmn72-dostavka-chudo"><span class="icon">⌂</span><h3>В наличии в Тюмени</h3><p>Самовывоз, доставка по городу и отправка по РФ.</p></a>
+          <a class="tile" href="https://vk.com/%40chudo_tmn72-kak-vybrat-razmer-chudo" target="_blank" rel="noopener"><span class="icon">⌕</span><h3>Точные замеры</h3><p>Подбираем по росту и фактическим замерам вещи.</p></a>
+          <a class="tile" href="https://vk.com/chudo_tmn72" target="_blank" rel="noopener"><span class="icon">◉</span><h3>Доп. фото/видео</h3><p>По запросу покажем вещь ближе и подробнее.</p></a>
+          <a class="tile" href="https://vk.com/%40chudo_tmn72-kak-vybrat-razmer-chudo" target="_blank" rel="noopener"><span class="icon">♡</span><h3>Помощь с размером</h3><p>Подскажем, какой размер выбрать для ребёнка.</p></a>
+          <a class="tile" href="https://vk.com/%40chudo_tmn72-dostavka-chudo" target="_blank" rel="noopener"><span class="icon">⌂</span><h3>В наличии в Тюмени</h3><p>Самовывоз, доставка по городу и отправка по РФ.</p></a>
+        </div>
+      </section>
+
+      <section class="trust" aria-label="Почему ЧУДО удобно">
+        <div class="section-head">
+          <h2>Почему удобно</h2>
+          <p>Сайт ведёт в готовые разделы VK и помогает быстрее дойти до покупки.</p>
+        </div>
+        <div class="trust-list">
+          <div class="trust-item">Маленькие партии<span>Вещи не выглядят массово и скучно.</span></div>
+          <div class="trust-item">Реальные фото<span>Показываем товар без лишних обещаний.</span></div>
+          <div class="trust-item">Проверка наличия<span>Уточняем размер и состояние перед продажей.</span></div>
+          <div class="trust-item">Связь во VK<span>Все вопросы — в одном привычном канале.</span></div>
         </div>
       </section>
 
@@ -151,11 +111,11 @@
           <h2>Хотите подобрать образ?</h2>
           <p>Напишите нам во VK — покажем варианты, замеры и дополнительные фото.</p>
         </div>
-        <a class="btn" href="https://vk.com/chudo_tmn72">Написать в VK →</a>
+        <a class="btn" href="https://vk.com/chudo_tmn72" target="_blank" rel="noopener">Написать в VK →</a>
       </section>
     </main>
     <footer>© ЧУДО — детская одежда для яркого детства · Тюмень · самовывоз · доставка · отправка по РФ</footer>
   </div>
 </body>
 </html>
-<!-- polished-landing-20260704 -->
+<!-- acceptance-polish-20260704 -->
