@@ -12,11 +12,11 @@ h1{font-size:1.5rem;margin-top:0}p{line-height:1.5}
 li{padding:5px 0}a{color:#a22173;font-weight:600}small{color:#68636b}</style></head>
 <body><main>
 <p style="color:#a43280;font-weight:700">ЧУДО · ПРОВЕРКА БЕЗ ЛАЙКОВ</p>
-<h1>Результат авторизации VK ID</h1>
+<h1>Передача доступа GitHub</h1>
 <p id="status" role="status" aria-live="polite">Проверяю ответ ВКонтакте...</p>
 <ol id="checks"></ol>
 <p><a href="./connect.html">Вернуться к началу проверки</a></p>
-<small>Секреты, токены и комментарии не отображаются, не сохраняются и не отправляются на другие сайты. Результат можно сфотографировать. Эта страница не подключает GitHub-бота и не ставит лайки.</small>
+<small>Токен не отображается и не сохраняется этой страницей. По твоему нажатию он попадает только в буфер обмена, после чего ты сможешь самостоятельно сохранить его как закрытый секрет GitHub. Не делай скриншот с токеном и не пересылай его. Эта страница не ставит лайки.</small>
 </main>
 <script>
 "use strict";
@@ -69,42 +69,47 @@ li{padding:5px 0}a{color:#a22173;font-weight:600}small{color:#68636b}</style></h
       add("Обмен кода", "НЕ УДАЛСЯ (HTTP "+res.status+")");
       return;
     }
-    // Token lives in this function's memory only. It is not saved or rendered.
+    // Keep the credential in temporary JS memory only, never in the DOM,
+    // storage, logs, URL, or images. Copy to GitHub Actions Secret on click.
     let token=data.access_token;
-    add("Вход через VK ID","УСПЕШНО");
-    const api=async(method,params={})=>{
-      try{
-        const reply=await fetch("https://api.vk.ru/method/"+method,{
-          method:"POST",
-          headers:{"content-type":"application/x-www-form-urlencoded"},
-          body:new URLSearchParams({...params,access_token:token,v:"5.199"}),
-          signal:AbortSignal.timeout(12000),referrerPolicy:"no-referrer"
-        });
-        const j=await reply.json();
-        if(j.error)return {ok:false,code:Number(j.error.error_code)};
-        if(reply.ok&&j.response!==undefined)return {ok:true,data:j.response};
-        return {ok:false,code:0};
-      }catch(_){return {ok:false,code:-1};}
-    };
-    const describe=r=>r.ok?"ДОСТУПЕН":r.code===-1?"НЕТ СОЕДИНЕНИЯ ИЛИ CORS":"ОШИБКА VK API "+r.code;
-    const identity=await api("users.get");
-    add("users.get",describe(identity));
-    const posts=await api("wall.get",{owner_id:GROUP,count:"1",filter:"owner"});
-    add("wall.get",describe(posts));
-    if(posts.ok&&Array.isArray(posts.data.items)&&posts.data.items.length){
-      const p=posts.data.items[0];
-      const comments=await api("wall.getComments",{owner_id:GROUP,post_id:String(p.id),count:"10"});
-      add("wall.getComments",describe(comments));
-      if(comments.ok&&Array.isArray(comments.data.items)){
-        const c=comments.data.items.find(x=>Number.isInteger(x.id)&&x.id>0);
-        if(c) {
-          const check=await api("likes.isLiked",{type:"comment",owner_id:GROUP,item_id:String(c.id)});
-          add("likes.isLiked (только проверка)",describe(check));
-        }else add("likes.isLiked","НЕТ КОММЕНТАРИЯ ДЛЯ ПРОВЕРКИ");
+    data.access_token="";
+    if(data.refresh_token) data.refresh_token="";
+    if(data.id_token) data.id_token="";
+    add("VK ID","АВТОРИЗАЦИЯ УСПЕШНА");
+    add("GitHub","ТОКЕН ЕЩЁ НЕ СОХРАНЁН");
+    status.textContent="Токен получен. Нажми кнопку ниже и вставь его непосредственно в секрет GitHub VK_USER_TOKEN. Никому не отправляй токен.";
+    const button=document.createElement("button");
+    button.type="button";
+    button.textContent="Скопировать токен для GitHub";
+    const instructions=document.createElement("p");
+    instructions.textContent="В GitHub открой приватный репозиторий chudo-vk-autolikes → Settings → Secrets and variables → Actions → New repository secret. Имя: VK_USER_TOKEN. Значение: вставь скопированное. Затем нажми Add secret.";
+    list.parentElement.insertBefore(button,list.nextSibling);
+    button.after(instructions);
+    const secretLink=document.createElement("a");
+    secretLink.href="https://github.com/chudo-tmn72/chudo-vk-autolikes/settings/secrets/actions";
+    secretLink.rel="noreferrer noopener";
+    secretLink.target="_blank";
+    secretLink.textContent="Открыть защищённые настройки GitHub";
+    instructions.after(secretLink);
+    button.addEventListener("click",async()=>{
+      if(!token)return;
+      try {
+        await navigator.clipboard.writeText(token);
+        token=null;
+        button.disabled=true;
+        button.textContent="Скопировано";
+        status.textContent="Токен скопирован. Вставь его прямо в секрет GitHub VK_USER_TOKEN. Не вставляй его в чат, почту или обычные файлы.";
+      }catch(_) {
+        status.textContent="Копирование не удалось. Открой страницу в Chrome по HTTPS и повтори вход через VK ID.";
       }
-    }
-    token=null;
-    status.textContent="Проверка закончена. Можно прислать скриншот только этой страницы с результатами. Лайки не отправлялись.";
+    });
+    setTimeout(()=>{
+      if(!token)return;
+      token=null;
+      button.disabled=true;
+      button.textContent="Время копирования истекло";
+      status.textContent="Защитное время истекло. Токен очищен из памяти страницы. Вернись к началу проверки для нового входа.";
+    },300000);
   }catch(_){
     status.textContent="Не удалось выполнить обмен авторизационного кода. Проверь, открываются ли сайты ВК, и пришли фото этой страницы (без адресной строки).";
   }
