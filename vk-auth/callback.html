@@ -64,6 +64,10 @@ li{padding:5px 0}a{color:#a22173;font-weight:600}small{color:#68636b}</style></h
       signal:AbortSignal.timeout(12000),referrerPolicy:"no-referrer"
     });
     const data=await res.json();
+    if (data.state !== expectedState) {
+      status.textContent="Ответ VK ID не совпал с проверочным кодом. Для безопасности авторизация остановлена. Начни заново.";
+      return;
+    }
     if (!res.ok||!data.access_token) {
       status.textContent="VK ID ответил, но не выдал совместимый токен. Проверка методов не началась.";
       add("Обмен кода", "НЕ УДАЛСЯ (HTTP "+res.status+")");
