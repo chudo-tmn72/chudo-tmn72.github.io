@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'none'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<title>ЧУДО | Безопасная проверка входа VK ID</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}body{background:#fff8fb;color:#302733;margin:0;display:grid;min-height:100vh;place-items:center}main{box-sizing:border-box;max-width:600px;width:94%;padding:28px;border-radius:20px;border:1px solid #f1dce7;background:white}h1{font-size:1.5rem;margin-top:0}p{line-height:1.5}button{background:#bf4188;color:white;border:0;border-radius:12px;padding:13px 18px;font-size:1rem;cursor:pointer}button:disabled{opacity:.6}small{color:#67606b}</style>
+</head>
+<body><main>
+<p style="color:#a43280;font-weight:700">ЧУДО · ТЕХНИЧЕСКАЯ ПРОВЕРКА</p>
+<h1>Проверка авторизации ВКонтакте</h1>
+<p>Этот вход проверяет, подходит ли новое приложение VK ID для чтения комментариев сообщества. <strong>Лайков не будет.</strong></p>
+<p>Коды авторизации и токены останутся внутри браузера. Они не отображаются на странице, не сохраняются на GitHub и не передаются в ChatGPT.</p>
+<button id="start" type="button">Проверить через VK ID</button>
+<p id="status" role="status" aria-live="polite">Нажмите кнопку, если хотите проверить доступ.</p>
+<small>Никаких платных действий. Не вводите пароль ВК на сайтах, кроме официального id.vk.ru. Проверка использует только базовый доступ, без запроса почты или телефона.</small>
+</main>
+<script>
+"use strict";
+(() => {
+ const APP_ID="54820651";
+ const CALLBACK="https://chudo-tmn72.github.io/vk-auth/callback.html";
+ const STATE_KEY="chudo_vk_auth_state_v1", VERIFIER_KEY="chudo_vk_auth_verifier_v1";
+ const b=document.getElementById("start"), status=document.getElementById("status");
+ const base64url=bytes=>btoa(String.fromCharCode(...bytes)).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+ b.onclick=async()=>{
+   b.disabled=true;status.textContent="Готовлю безопасный переход в VK ID...";
+   try {
+     if (!crypto || !crypto.subtle || !sessionStorage) throw new Error("UNAVAILABLE");
+     const verifier=base64url(crypto.getRandomValues(new Uint8Array(32)));
+     const state=base64url(crypto.getRandomValues(new Uint8Array(32)));
+     const hashed=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(verifier));
+     const challenge=base64url(new Uint8Array(hashed));
+     sessionStorage.setItem(STATE_KEY,state);
+     sessionStorage.setItem(VERIFIER_KEY,verifier);
+     const params=new URLSearchParams({
+       client_id:APP_ID, app_id:APP_ID, redirect_uri:CALLBACK,
+       response_type:"code",code_challenge:challenge,code_challenge_method:"s256",
+       state:state,scope:"",sdk_type:"vkid",v:"2.6.1"
+     });
+     location.assign("https://id.vk.ru/authorize?"+params.toString());
+   } catch(_){
+     b.disabled=false;status.textContent="Не удалось подготовить вход. Попробуйте открыть страницу в Chrome без режима инкогнито.";
+   }
+ };
+})();
+</script></body></html>
