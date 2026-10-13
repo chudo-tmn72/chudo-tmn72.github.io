@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>ЧУДО | Возврат из VK ID</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; color-scheme: light; }
+    body { margin: 0; background: #fff9f3; color: #323232; display: grid; min-height: 100vh; place-items: center; }
+    main { box-sizing: border-box; width: min(94%, 530px); background: white; border: 1px solid #f4e5e3; border-radius: 16px; padding: 28px; box-shadow: 0 8px 24px #00000009; }
+    h1 { font-size: 1.35rem; margin-top: 0; }
+    p { line-height: 1.55; }
+    .tag { color: #8a4a7d; font-weight: 700; letter-spacing: .06em; }
+    .hint { color: #686868; font-size: .92rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="tag">ЧУДО · СЛУЖЕБНАЯ СТРАНИЦА</p>
+    <h1>Подготовка входа через VK ID</h1>
+    <p id="status">Адрес возврата для будущей авторизации зарегистрирован в проекте. Вход ещё не включён.</p>
+    <p class="hint">Эта страница не запрашивает пароли, не показывает и не отправляет коды, токены или данные ВКонтакте. Пока подтверждение VK ID не завершает подключение GitHub-бота.</p>
+  </main>
+  <script>
+    (function () {
+      'use strict';
+      // OAuth data may arrive via query or fragment. Never render, log, store,
+      // send, or keep it in the address bar before a reviewed PKCE flow exists.
+      const hadParams = Boolean(location.search || location.hash);
+      try { history.replaceState(null, '', location.pathname); } catch (_) { /* no data usage */ }
+      if (hadParams) {
+        document.getElementById('status').textContent =
+          'ВКонтакте вернул ответ. Настройка входа ещё не завершена. Не пересылайте никому ссылку с кодом или токеном.';
+      }
+    }());
+  </script>
+</body>
+</html>
