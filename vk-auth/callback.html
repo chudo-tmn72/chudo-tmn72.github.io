@@ -1,41 +1,112 @@
 <!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow, noarchive">
-  <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; base-uri 'none'; form-action 'none'">
-  <title>ЧУДО | Возврат из VK ID</title>
-  <style>
-    :root { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; color-scheme: light; }
-    body { margin: 0; background: #fff9f3; color: #323232; display: grid; min-height: 100vh; place-items: center; }
-    main { box-sizing: border-box; width: min(94%, 530px); background: white; border: 1px solid #f4e5e3; border-radius: 16px; padding: 28px; box-shadow: 0 8px 24px #00000009; }
-    h1 { font-size: 1.35rem; margin-top: 0; }
-    p { line-height: 1.55; }
-    .tag { color: #8a4a7d; font-weight: 700; letter-spacing: .06em; }
-    .hint { color: #686868; font-size: .92rem; }
-  </style>
-</head>
-<body>
-  <main>
-    <p class="tag">ЧУДО · СЛУЖЕБНАЯ СТРАНИЦА</p>
-    <h1>Подготовка входа через VK ID</h1>
-    <p id="status">Адрес возврата для будущей авторизации зарегистрирован в проекте. Вход ещё не включён.</p>
-    <p class="hint">Эта страница не запрашивает пароли, не показывает и не отправляет коды, токены или данные ВКонтакте. Пока подтверждение VK ID не завершает подключение GitHub-бота.</p>
-  </main>
-  <script>
-    (function () {
-      'use strict';
-      // OAuth data may arrive via query or fragment. Never render, log, store,
-      // send, or keep it in the address bar before a reviewed PKCE flow exists.
-      const hadParams = Boolean(location.search || location.hash);
-      try { history.replaceState(null, '', location.pathname); } catch (_) { /* no data usage */ }
-      if (hadParams) {
-        document.getElementById('status').textContent =
-          'ВКонтакте вернул ответ. Настройка входа ещё не завершена. Не пересылайте никому ссылку с кодом или токеном.';
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'none'; connect-src https://id.vk.ru https://api.vk.ru; form-action 'none'; base-uri 'none'; object-src 'none'">
+<title>ЧУДО | Результат проверки VK ID</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}
+body{background:#fff8fb;color:#302733;margin:0;display:grid;min-height:100vh;place-items:center}
+main{box-sizing:border-box;max-width:650px;width:94%;padding:28px;border-radius:20px;border:1px solid #f1dce7;background:white}
+h1{font-size:1.5rem;margin-top:0}p{line-height:1.5}
+li{padding:5px 0}a{color:#a22173;font-weight:600}small{color:#68636b}</style></head>
+<body><main>
+<p style="color:#a43280;font-weight:700">ЧУДО · ПРОВЕРКА БЕЗ ЛАЙКОВ</p>
+<h1>Результат авторизации VK ID</h1>
+<p id="status" role="status" aria-live="polite">Проверяю ответ ВКонтакте...</p>
+<ol id="checks"></ol>
+<p><a href="./connect.html">Вернуться к началу проверки</a></p>
+<small>Секреты, токены и комментарии не отображаются, не сохраняются и не отправляются на другие сайты. Результат можно сфотографировать. Эта страница не подключает GitHub-бота и не ставит лайки.</small>
+</main>
+<script>
+"use strict";
+(async()=>{
+  const status=document.getElementById("status");
+  const list=document.getElementById("checks");
+  const STATE_KEY="chudo_vk_auth_state_v1",VERIFIER_KEY="chudo_vk_auth_verifier_v1";
+  const GROUP="-165365365",APP_ID="54820651", CALLBACK="https://chudo-tmn72.github.io/vk-auth/callback.html";
+  const add=(method,result)=>{
+    const li=document.createElement("li");li.textContent=method+": "+result;list.appendChild(li);
+  };
+  const qp=new URLSearchParams(location.search);
+  const fp=new URLSearchParams(location.hash.startsWith("#")?location.hash.slice(1):"");
+  const get=k=>qp.get(k)||fp.get(k);
+  const code=get("code"),returnedState=get("state"),device=get("device_id");
+  const authError=get("error");
+  // Remove sensitive OAuth parameters before displaying anything or contacting VK.
+  try { history.replaceState(null,"",location.pathname); }catch(_){}
+  if (authError) {
+    status.textContent="ВКонтакте не разрешил вход. Можно вернуться к началу проверки.";
+    return;
+  }
+  if (!code) {
+    status.textContent="Страница готова, но авторизация ещё не выполнялась. Начни проверку по ссылке ниже.";
+    return;
+  }
+  let expectedState,verifier;
+  try {
+    expectedState=sessionStorage.getItem(STATE_KEY);
+    verifier=sessionStorage.getItem(VERIFIER_KEY);
+    sessionStorage.removeItem(STATE_KEY);sessionStorage.removeItem(VERIFIER_KEY);
+  } catch(_) { status.textContent="Браузер не смог проверить защиту входа. Повторите вход в обычной вкладке.";return; }
+  if(!returnedState||!expectedState||returnedState!==expectedState||!verifier||!device) {
+    status.textContent="Проверка безопасности входа не пройдена. Не продолжайте с этим ответом. Начните заново.";
+    return;
+  }
+  try {
+    const url=new URL("https://id.vk.ru/oauth2/auth");
+    url.search=new URLSearchParams({
+      grant_type:"authorization_code",redirect_uri:CALLBACK,
+      client_id:APP_ID,code_verifier:verifier,state:expectedState,device_id:device
+    }).toString();
+    const res=await fetch(url.toString(),{
+      method:"POST",body:new URLSearchParams({code:code}),
+      signal:AbortSignal.timeout(12000),referrerPolicy:"no-referrer"
+    });
+    const data=await res.json();
+    if (!res.ok||!data.access_token) {
+      status.textContent="VK ID ответил, но не выдал совместимый токен. Проверка методов не началась.";
+      add("Обмен кода", "НЕ УДАЛСЯ (HTTP "+res.status+")");
+      return;
+    }
+    // Token lives in this function's memory only. It is not saved or rendered.
+    let token=data.access_token;
+    add("Вход через VK ID","УСПЕШНО");
+    const api=async(method,params={})=>{
+      try{
+        const reply=await fetch("https://api.vk.ru/method/"+method,{
+          method:"POST",
+          headers:{"content-type":"application/x-www-form-urlencoded"},
+          body:new URLSearchParams({...params,access_token:token,v:"5.199"}),
+          signal:AbortSignal.timeout(12000),referrerPolicy:"no-referrer"
+        });
+        const j=await reply.json();
+        if(j.error)return {ok:false,code:Number(j.error.error_code)};
+        if(reply.ok&&j.response!==undefined)return {ok:true,data:j.response};
+        return {ok:false,code:0};
+      }catch(_){return {ok:false,code:-1};}
+    };
+    const describe=r=>r.ok?"ДОСТУПЕН":r.code===-1?"НЕТ СОЕДИНЕНИЯ ИЛИ CORS":"ОШИБКА VK API "+r.code;
+    const identity=await api("users.get");
+    add("users.get",describe(identity));
+    const posts=await api("wall.get",{owner_id:GROUP,count:"1",filter:"owner"});
+    add("wall.get",describe(posts));
+    if(posts.ok&&Array.isArray(posts.data.items)&&posts.data.items.length){
+      const p=posts.data.items[0];
+      const comments=await api("wall.getComments",{owner_id:GROUP,post_id:String(p.id),count:"10"});
+      add("wall.getComments",describe(comments));
+      if(comments.ok&&Array.isArray(comments.data.items)){
+        const c=comments.data.items.find(x=>Number.isInteger(x.id)&&x.id>0);
+        if(c) {
+          const check=await api("likes.isLiked",{type:"comment",owner_id:GROUP,item_id:String(c.id)});
+          add("likes.isLiked (только проверка)",describe(check));
+        }else add("likes.isLiked","НЕТ КОММЕНТАРИЯ ДЛЯ ПРОВЕРКИ");
       }
-    }());
-  </script>
-</body>
-</html>
+    }
+    token=null;
+    status.textContent="Проверка закончена. Можно прислать скриншот только этой страницы с результатами. Лайки не отправлялись.";
+  }catch(_){
+    status.textContent="Не удалось выполнить обмен авторизационного кода. Проверь, открываются ли сайты ВК, и пришли фото этой страницы (без адресной строки).";
+  }
+})();
+</script></body></html>
